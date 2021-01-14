@@ -1,10 +1,10 @@
 import React from "react";
 import Head from "next/head";
-import ReCAPTCHA from "react-google-recaptcha";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function Home() {
   const [email, setEmail] = React.useState("");
-  const recaptchaRef = React.createRef();
+  const hcaptchaRef = React.useRef(null);
 
   const handleChange = ({ target: { value } }) => {
     setEmail(value);
@@ -12,20 +12,20 @@ export default function Home() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Execute the reCAPTCHA when the form is submitted
-    recaptchaRef.current.execute();
+    // Execute the hCaptcha when the form is submitted
+    hcaptchaRef.current.execute();
   };
 
-  const onReCAPTCHAChange = async (captchaCode) => {
-    // If the reCAPTCHA code is null or undefined indicating that
-    // the reCAPTCHA was expired then return early
+  const onHCaptchaChange = async (captchaCode) => {
+    // If the hCaptcha code is null or undefined indicating that
+    // the hCaptcha was expired then return early
     if (!captchaCode) {
       return;
     }
     try {
       const response = await fetch("/api/register", {
         method: "POST",
-        body: JSON.stringify({ email, captcha: "captchaCode" }),
+        body: JSON.stringify({ email, captcha: captchaCode }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -42,9 +42,8 @@ export default function Home() {
     } catch (error) {
       alert(error?.message || "Something went wrong");
     } finally {
-      // Reset the reCAPTCHA when the request has failed or succeeeded
+      // Reset the hCaptcha when the request has failed or succeeeded
       // so that it can be executed again if user submits another email.
-      recaptchaRef.current.reset();
       setEmail("");
     }
   };
@@ -52,18 +51,19 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Recaptcha with Next</title>
+        <title>hCaptcha with Next</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div id="feedback-form">
-        <h2 className="header">Hello reCAPTCHA</h2>
+        <h2 className="header">Hello hCaptcha</h2>
         <div>
           <form onSubmit={handleSubmit}>
-            <ReCAPTCHA
-              ref={recaptchaRef}
+            <HCaptcha
+              id="test"
               size="invisible"
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-              onChange={onReCAPTCHAChange}
+              ref={hcaptchaRef}
+              sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
+              onVerify={onHCaptchaChange}
             />
             <input
               onChange={handleChange}

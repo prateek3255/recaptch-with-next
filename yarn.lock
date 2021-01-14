@@ -110,6 +110,11 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.1.tgz#9daf5745156fd84b8e9889a2dc721f0c58e894aa"
   integrity sha512-CAEbWH7OIur6jEOzaai83jq3FmKmv4PmX1JYfs9IrYcGEVI/lyL1EXJGCj7eFVJ0bg5QR8LMxBlEtA+xKiLpFw==
 
+"@hcaptcha/react-hcaptcha@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@hcaptcha/react-hcaptcha/-/react-hcaptcha-0.2.2.tgz#84e475e4147877053fc5a2e40fd1434f10aaa49f"
+  integrity sha512-tAi0IPLvQCEwQVU238AWbdRiPRc+F195nyfptS2E6qI87k+2vadjjxekseLlQfRgMFmZXxMcFuRYgo5r54yRJw==
+
 "@next/env@10.0.4":
   version "10.0.4"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-10.0.4.tgz#ac759094d021853616af56a7bd6720e44a92a303"
